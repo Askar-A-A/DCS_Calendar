@@ -107,10 +107,10 @@
                               </div>
                           </div>
                           <div class="modal-footer">
-                              <button id="delete-event-button" data-event-id="" type="button" class="btn btn-danger">Delete</button>
-                              <button id="add-to-next-week" data-event-id-week="" type="button" class="btn btn-success">Next Week</button>
-                              <button id="add-to-next-day" data-event-id-day="" type="button" class="btn btn-primary">Next Day</button>
-
+                            <button id="attend-event-button" data-event-id="" type="button" class="btn btn-primary">Attend</button>
+                            <button id="delete-event-button" data-event-id="" type="button" class="btn btn-danger">Delete</button>
+                            <button id="add-to-next-week" data-event-id-week="" type="button" class="btn btn-success">Next Week</button>
+                            <button id="add-to-next-day" data-event-id-day="" type="button" class="btn btn-primary">Next Day</button>
                           </div>
                       </form>
                   </div>
@@ -187,10 +187,12 @@
           var deleteButton = document.getElementById("delete-event-button");
           var nextWeek = document.getElementById("add-to-next-week");
           var nextDay = document.getElementById("add-to-next-day");
+          var attendButton = document.getElementById("attend-event-button");
 
           deleteButton.setAttribute("data-event-id", id);
           nextWeek.setAttribute("data-event-id-week", id);
           nextDay.setAttribute("data-event-id-day", id);
+          attendButton.setAttribute("data-event-id", id);
           modal.style.display = 'block' 
           
           modalTitle.textContent = title;
@@ -308,6 +310,13 @@
         });
     }
 });
+document.getElementById('attend-event-button').addEventListener('click', function() {
+    const eventId = this.getAttribute('data-event-id');
+    console.log('Event ID:', eventId); // Debugging line to check the event ID
+    window.location.href = `/attend_event/${eventId}/`;
+});
+
+  
 
 </script>
 {% endblock extrascripts %}

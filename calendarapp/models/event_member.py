@@ -11,6 +11,8 @@ class EventMember(EventAbstract):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="event_members"
     )
+    email = models.EmailField()
+    nickname = models.CharField(max_length=100)
     role = models.CharField(max_length=100)
 
     class Meta:

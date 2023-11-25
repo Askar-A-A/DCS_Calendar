@@ -10,6 +10,7 @@ from .other_views import (
     delete_event,
     next_week,
     next_day,
+    attend_event,
 )
 
 
@@ -26,4 +27,5 @@ __all__ = [
     delete_event,
     next_week,
     next_day,
+    attend_event,
 ]

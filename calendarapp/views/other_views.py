@@ -179,3 +179,9 @@ def next_day(request, event_id):
         return JsonResponse({'message': 'Sucess!'})
     else:
         return JsonResponse({'message': 'Error!'}, status=400)
+    
+
+def attend_event(request, event_id):
+    context = {'event_id': event_id}
+    return render(request, 'role.html', context)
+        
