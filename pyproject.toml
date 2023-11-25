@@ -1,0 +1,7 @@
+[tool.skjold]
+report_only = false
+report_format = 'cli'
+sources = ["pyup", "github", "gemnasium", "osv", "pypa"]
+cache_dir = ".skjold_cache"
+cache_expires = 43200
+ignore_file = ".skjoldignore"
