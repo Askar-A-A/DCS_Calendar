@@ -182,6 +182,24 @@ def next_day(request, event_id):
     
 
 def attend_event(request, event_id):
+    if request.method == 'POST':
+       email = request.POST.get('email')
+       nickname = request.POST.get('nickname')
+       role = request.POST.get('role')
+
+       event = get_object_or_404(Event, id=event_id)
+       if not EventMember.objects.filter(event=event, email=email, nickname = nickname, role = role):
+           
+          member = EventMember.objects.create(
+            event = event, 
+            user = request.user,
+            email = email, 
+            nickname = nickname,
+            role = role 
+            )
+        
     context = {'event_id': event_id}
     return render(request, 'role.html', context)
         
+
+

@@ -4,7 +4,7 @@ from . import views
 
 app_name = "calendarapp"
 
-7
+
 urlpatterns = [
     path("calender/", views.CalendarViewNew.as_view(), name="calendar"),
     path("calenders/", views.CalendarView.as_view(), name="calendars"),

@@ -5,15 +5,13 @@ from calendarapp.models import Event, EventAbstract
 
 
 class EventMember(EventAbstract):
-    """ Event member model """
-
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="events")
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="members")
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="event_members"
     )
-    email = models.EmailField()
-    nickname = models.CharField(max_length=100)
-    role = models.CharField(max_length=100)
+    email = models.EmailField(default='email@gmail.com')
+    nickname = models.CharField(max_length=100, default='name')
+    role = models.CharField(max_length=100, default='role')
 
     class Meta:
         unique_together = ["event", "user", "role"]
