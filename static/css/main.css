@@ -7496,7 +7496,7 @@ a.close.disabled {
 }
 
 .bg-primary {
-  background-color: #009688 !important;
+  background-color: #222d32 !important; 
 }
 
 a.bg-primary:hover,
@@ -18005,7 +18005,7 @@ be a descendant of the grid when it is being dragged.
 }
 
 #description_event_detail {
-  color: red;
+  /* color: red; */
 }
 
 #text {
