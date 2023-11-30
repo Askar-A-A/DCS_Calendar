@@ -12,10 +12,6 @@ urlpatterns = [
     path('next_week/<int:event_id>/', views.next_week, name='next_week'),
     path('next_day/<int:event_id>/', views.next_day, name='next_day'),
     path('attend_event/<int:event_id>/', views.attend_event, name='attend_event'),
-
-
-
-
     path("event/new/", views.create_event, name="event_new"),
     path("event/edit/<int:pk>/", views.EventEdit.as_view(), name="event_edit"),
     path("event/<int:event_id>/details/", views.event_details, name="event-detail"),
