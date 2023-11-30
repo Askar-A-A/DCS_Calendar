@@ -915,6 +915,7 @@ A HORIZONTAL event
 }
 /* --- spacing between time and title --- */
 .fc-direction-ltr .fc-daygrid-event .fc-event-time {
+  margin-left: 20px;
     margin-right: 3px;
   }
 .fc-direction-rtl .fc-daygrid-event .fc-event-time {
@@ -1443,3 +1444,10 @@ A VERTICAL event
   .fc-theme-bootstrap a:not([href]) {
     color: inherit; /* natural color for navlinks */
   }
+
+  #text{
+    color:#3788d8;
+    width: 30px;
+  }
+
+ 

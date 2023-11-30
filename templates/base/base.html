@@ -15,6 +15,8 @@
         <meta property="og:image" content="https://sajib1066.github.io/images/me.jpg" />
         <meta property="og:description" content="Event Dashboard" />
         <title>{% block title %}{% endblock title  %}</title>
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/helicopter.png' %}">
+        
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -30,7 +32,11 @@
         <header class="app-header">
             <a class="app-header__logo" href="#">Dashboard</a>
             <!-- Sidebar toggle button-->
+            <div class="app-header__container">
             <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
+            
+            <a class="app-header__title" href="#" >Home</a>
+        </div>
             <!-- Navbar Right Menu-->
             
         </header>

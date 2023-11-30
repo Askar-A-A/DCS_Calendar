@@ -1369,7 +1369,7 @@ pre {
   background-color: rgba(0, 0, 0, 0.05); }
 
 .table-hover tbody tr:hover {
-  color: #212529;
+  color: whitesmoke;
   background-color: rgba(0, 0, 0, 0.075); }
 
 .table-primary,
