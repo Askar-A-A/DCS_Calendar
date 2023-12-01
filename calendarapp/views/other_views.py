@@ -100,7 +100,7 @@ def add_eventmember(request, event_id):
                 EventMember.objects.create(event=event, user=user)
                 return redirect("calendarapp:calendar")
             else:
-                print("--------------User limit exceed!-----------------")
+                print("--------------User limit exceed-----------------")
     context = {"form": forms}
     return render(request, "add_member.html", context)
 
