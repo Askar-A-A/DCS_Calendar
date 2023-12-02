@@ -101,10 +101,20 @@
 
 .fc-icon-chevron-left:before {
   content: "\e900";
+  transition: color 0.3s;
+}
+.fc-icon-chevron-left:hover:before {
+  content: "\e900";
+  color: #fff;
 }
 
 .fc-icon-chevron-right:before {
   content: "\e901";
+  transition: color 0.3s;
+}
+.fc-icon-chevron-right:hover:before {
+  content: "\e901";
+  color: #fff;
 }
 
 .fc-icon-chevrons-left:before {
@@ -197,13 +207,14 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
 
 }
 .fc .fc-button-primary {
-    color: #fff;
-    color: var(--fc-button-text-color, #fff);
-    background-color: black !important;
+    color: darkgray;
+    /* color: var(--fc-button-text-color, #fff); */
+    background-color: #3f4255 !important;
     background-color: var(--fc-button-bg-color, #fff);
     border-color: #fff;
     border-color: var(--fc-button-border-color, #fff);
     text-transform: uppercase;
+    transition: color 0.3s;
   }
 .fc .fc-button-primary:hover {
     color: #fff;
@@ -858,7 +869,7 @@ A HORIZONTAL event
 .fc-direction-ltr .fc-daygrid-event.fc-event-end,
 .fc-direction-rtl .fc-daygrid-event.fc-event-start {
   margin-right: 2px;
-  background-image: url("../images/flag.png");
+  background-image: url("../images/flag.svg");
   background-size: contain;
   background-repeat: no-repeat;
 }

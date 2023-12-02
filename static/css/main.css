@@ -1241,6 +1241,10 @@ pre code {
     -ms-flex: 0 0 25%;
     flex: 0 0 25%;
     max-width: 25%;
+    overflow-x: auto;
+    background-color: #3f4255;
+    padding-top: 20px;
+    border-radius: 15px;
   }
 
   .col-md-4 {
@@ -14973,7 +14977,7 @@ temporary rendered events).
   /* undo jqui's ui-widget-header bold */
   margin-bottom: 5px;
   cursor: all-scroll;
-  background-image: url("../images/flag.png");
+  /* background-image: url("../images/flag.png"); */
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -14986,7 +14990,7 @@ temporary rendered events).
   color: #fff;
   /* default TEXT color */
   /* text-decoration: none; */
-  background-image: url("../images/flag.png");
+  /* background-image: url("../images/flag.png"); */
   background-size: contain;
   background-repeat: no-repeat;
   /* if <a> has an href */
