@@ -1,7 +1,7 @@
 from django.db import models
 
 from accounts.models import User
-from calendarapp.models import Event, EventAbstract
+from calendarapp.models import Event, EventAbstract, Team
 
 
 class EventMember(EventAbstract):
@@ -12,6 +12,7 @@ class EventMember(EventAbstract):
     email = models.EmailField(default='email@gmail.com')
     nickname = models.CharField(max_length=100, default='name')
     role = models.CharField(max_length=100, default='role')
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="members", null=True, blank=True)
 
     class Meta:
         unique_together = ["event", "user", "role"]

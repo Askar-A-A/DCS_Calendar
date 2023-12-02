@@ -12,7 +12,7 @@ from django.urls import reverse_lazy, reverse
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 
-from calendarapp.models import EventMember, Event
+from calendarapp.models import EventMember, Event, Team
 from calendarapp.utils import Calendar
 from calendarapp.forms import EventForm, AddMemberForm
 
@@ -190,7 +190,7 @@ def attend_event(request, event_id):
        event = get_object_or_404(Event, id=event_id)
        if not EventMember.objects.filter(event=event, email=email, nickname = nickname, role = role):
            
-          member = EventMember.objects.create(
+        EventMember.objects.create(
             event = event, 
             user = request.user,
             email = email, 
@@ -200,6 +200,25 @@ def attend_event(request, event_id):
         
     context = {'event_id': event_id}
     return render(request, 'role.html', context)
+
+def create_team(request, event_id):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+
+        event = get_object_or_404(Event, id=event_id)
+        Team.objects.create(
+            event=event,
+            name=name
+        )
+        
+
+    context = {'event_id': event_id}
+    return render(request, 'role.html', context)
+
+        
+        
+
+        
         
 
 
