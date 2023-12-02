@@ -4,7 +4,7 @@
  * Author: Pratik Borsadiya
  * ================================*/
 @import url(https://fonts.googleapis.com/css?family=Lato:300,400,400i,700);
-@import url(https://fonts.googleapis.com/css?family=BlackOpsOne);
+/* @import url(https://fonts.googleapis.com/css?family=BlackOpsOne); */
 @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
 
 /*!
@@ -1242,9 +1242,6 @@ pre code {
     flex: 0 0 25%;
     max-width: 25%;
     overflow-x: auto;
-    background-color: #3f4255;
-    padding-top: 20px;
-    border-radius: 15px;
   }
 
   .col-md-4 {
