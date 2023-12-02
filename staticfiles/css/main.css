@@ -9321,6 +9321,9 @@ button.bg-dark:focus {
 .mb-4,
 .my-4 {
   margin-bottom: 1.5rem !important;
+  background-color: #3f4255;
+  padding: 15px;
+  border-radius: 15px;
 }
 
 .ml-4,
