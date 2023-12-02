@@ -1,5 +1,5 @@
 from django.forms import ModelForm, DateInput
-from calendarapp.models import Event, EventMember
+from calendarapp.models import Event, EventMember, Team
 from django import forms
 
 
@@ -40,3 +40,4 @@ class AddMemberForm(forms.ModelForm):
     class Meta:
         model = EventMember
         fields = ["user"]
+
