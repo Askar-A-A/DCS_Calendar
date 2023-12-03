@@ -12,7 +12,7 @@
       -ms-user-select: none;
           user-select: none;
   -webkit-touch-callout: none;
-  -webkit-tap-highlight-color: #009688;
+  -webkit-tap-highlight-color: red;
 }
 .fc {
   /* layout of immediate children */
@@ -101,10 +101,20 @@
 
 .fc-icon-chevron-left:before {
   content: "\e900";
+  transition: color 0.3s;
+}
+.fc-icon-chevron-left:hover:before {
+  content: "\e900";
+  color: #fff;
 }
 
 .fc-icon-chevron-right:before {
   content: "\e901";
+  transition: color 0.3s;
+}
+.fc-icon-chevron-right:hover:before {
+  content: "\e901";
+  color: #fff;
 }
 
 .fc-icon-chevrons-left:before {
@@ -197,13 +207,14 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
 
 }
 .fc .fc-button-primary {
-    color: #fff;
-    color: var(--fc-button-text-color, #fff);
-    background-color: #009688 !important;
+    color: darkgray;
+    /* color: var(--fc-button-text-color, #fff); */
+    background-color: #3f4255 !important;
     background-color: var(--fc-button-bg-color, #fff);
     border-color: #fff;
     border-color: var(--fc-button-border-color, #fff);
     text-transform: uppercase;
+    transition: color 0.3s;
   }
 .fc .fc-button-primary:hover {
     color: #fff;
@@ -424,6 +435,10 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
     right: 0;
     bottom: 0;
     left: 0;
+  }
+
+  tr{
+    color: whitesmoke;
   }
 .fc .fc-col-header-cell-cushion {
     display: inline-block; /* x-browser for when sticky (when multi-tier header) */
@@ -707,8 +722,8 @@ A HORIZONTAL event
     z-index: 1; /* container inner z-index's because <tr>s can't do it */
   }
 .fc .fc-daygrid-day.fc-day-today {
-      background-color: rgba(255, 220, 40, 0.15);
-      background-color: var(--fc-today-bg-color, rgba(255, 220, 40, 0.15));
+      background-color: rgba(152, 362, 118, 0.15);
+      background-color: var(--fc-today-bg-color, rgba(93, 168, 40, 0.15));  
     }
 .fc .fc-daygrid-day-frame {
     position: relative;
@@ -849,10 +864,14 @@ A HORIZONTAL event
 .fc-direction-ltr .fc-daygrid-event.fc-event-start,
 .fc-direction-rtl .fc-daygrid-event.fc-event-end {
   margin-left: 2px;
+  
 }
 .fc-direction-ltr .fc-daygrid-event.fc-event-end,
 .fc-direction-rtl .fc-daygrid-event.fc-event-start {
   margin-right: 2px;
+  background-image: url("../images/flag.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 .fc-direction-ltr .fc-daygrid-week-number {
     left: 0;
@@ -908,31 +927,37 @@ A HORIZONTAL event
   box-sizing: content-box;
   width: 0;
   height: 0;
-  border: 4px solid #3788d8;
-  border: calc(var(--fc-daygrid-event-dot-width, 8px) / 2) solid var(--fc-event-border-color, #3788d8);
+  /* border: 4px solid #3788d8; */
+  /* border: calc(var(--fc-daygrid-event-dot-width, 8px) / 2) solid var(--fc-event-border-color, #3788d8); */
   border-radius: 4px;
   border-radius: calc(var(--fc-daygrid-event-dot-width, 8px) / 2);
 }
 /* --- spacing between time and title --- */
 .fc-direction-ltr .fc-daygrid-event .fc-event-time {
-  margin-left: 20px;
     margin-right: 3px;
+    margin-left: 20px;
   }
 .fc-direction-rtl .fc-daygrid-event .fc-event-time {
     margin-left: 3px;
   }
 
 
+  .fc-daygrid-day-events{
+    background-size: 10px;
+    /* background-repeat: no-repeat; */
+    color: white;
+  }
+  
 /*
 A VERTICAL event
 */
 
 .fc-v-event { /* allowed to be top-level */
   display: block;
-  border: 1px solid #3788d8;
-  border: 1px solid var(--fc-event-border-color, #3788d8);
-  background-color: #3788d8;
-  background-color: var(--fc-event-bg-color, #3788d8)
+  /* border: 1px solid #3788d8; */
+  /* border: 1px solid var(--fc-event-border-color, #3788d8); */
+  /* background-color: #3788d8; */
+  /* background-color: var(--fc-event-bg-color, #3788d8) */
 
 }
 
@@ -1444,10 +1469,3 @@ A VERTICAL event
   .fc-theme-bootstrap a:not([href]) {
     color: inherit; /* natural color for navlinks */
   }
-
-  #text{
-    color:#3788d8;
-    width: 30px;
-  }
-
- 

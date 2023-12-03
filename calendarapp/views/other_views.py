@@ -11,6 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
+from django.contrib import messages
 
 from calendarapp.models import EventMember, Event, Team
 from calendarapp.utils import Calendar
@@ -182,41 +183,52 @@ def next_day(request, event_id):
     
 
 def attend_event(request, event_id):
-    if request.method == 'POST':
-       email = request.POST.get('email')
-       nickname = request.POST.get('nickname')
-       role = request.POST.get('role')
+    event = get_object_or_404(Event, id=event_id)
+    teams = Team.objects.filter(event=event)
+    team_created = False
 
-       event = get_object_or_404(Event, id=event_id)
-       if not EventMember.objects.filter(event=event, email=email, nickname = nickname, role = role):
-           
-        EventMember.objects.create(
-            event = event, 
-            user = request.user,
-            email = email, 
-            nickname = nickname,
-            role = role 
+    # Handle Team Creation
+    if request.method == "POST" and 'team_name' in request.POST:
+        team_name = request.POST.get('team_name')
+
+        # Check if team name is not empty
+        if not team_name:
+            messages.error(request, 'You must enter the name of the team!')
+        # Check if team name is unique within the event
+        elif Team.objects.filter(event=event, name=team_name).exists():
+            messages.error(request, 'A team with this name already exists for this event!')
+        else:
+            Team.objects.create(event=event, name=team_name)
+            team_created = True
+            teams = Team.objects.filter(event=event)
+            messages.success(request, 'Team created successfully!')        
+            
+
+    # Handle Event Attendance
+    if request.method == "POST" and 'email' in request.POST:  # Check if attendance form was submitted
+        email = request.POST.get('email')
+        nickname = request.POST.get('nickname')
+        role = request.POST.get('role')
+
+        if not EventMember.objects.filter(event=event, email=email, nickname=nickname, role=role):
+            EventMember.objects.create(
+                event=event, 
+                user=request.user,
+                email=email, 
+                nickname=nickname,
+                role=role
             )
-        
-    context = {'event_id': event_id}
+    context = {
+        'event_id': event_id,
+        'event_title': event.title,
+        'teams': teams,
+        'team_created': team_created
+    }
     return render(request, 'role.html', context)
 
-def create_team(request, event_id):
-    if request.method == 'POST':
-        name = request.POST.get('name')
 
-        event = get_object_or_404(Event, id=event_id)
-        Team.objects.create(
-            event=event,
-            name=name
-        )
-        
 
-    context = {'event_id': event_id}
-    return render(request, 'role.html', context)
-
-        
-        
+             
 
         
         

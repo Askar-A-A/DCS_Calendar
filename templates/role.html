@@ -7,18 +7,19 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            padding: 20px 0; /* Add top and bottom padding */
             background-color: #f4f4f4;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            flex-direction: column; /* Align items vertically */
+            align-items: center; /* Center items horizontally */
+            justify-content: flex-start; /* Align content to the top */
         }
         .form-container {
             background-color: white;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px; /* Space between forms */
         }
         .form-group {
             margin-bottom: 15px;
@@ -49,38 +50,64 @@
 </head>
 <body>
     <div class="form-container">
-        <h1>Attend Event {{ event_id }}</h1>
-        <form action="" method="post">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="nickname">Nickname:</label>
-                <input type="text" id="nickname" name="nickname" required>
-            </div>
-            <div class="form-group">
-                <label for="role">Role:</label>
-                <select id="role" name="role" required>
-                    <option value="">Select a Role</option>
-                    <option value="scout">Scout</option>
-                    <option value="attack_aircraft">Attack Aircraft</option>
-                    <option value="leader">Leader</option>
-                    <option value="wingman">Wingman</option>
-                </select>
-            </div>
-            <button type="submit">Submit</button>
-        </form>
-        <h2>Create Team</h2>
+        <h2>Create Team for Event {{ event_title }}</h2>
         <form action="" method="post">
             {% csrf_token %}
             <div class="form-group">
                 <label for="teamName">Team Name:</label>
-                <input type="text" id="teamName" name="name" required>
+                <input type="text" id="teamName" name="team_name" required>
             </div>
             <button type="submit">Create Team</button>
         </form>
+    
+        {% if teams %}
+            <h1>Teams for Event {{ event_title }}</h1>
+            {% for team in teams %}
+    <div>
+        <span>{{ team.name }}</span>
+        <!-- Pass both team.id and team.name to the function -->
+        <button onclick="showJoinTeamForm('{{ team.id }}', '{{ team.name }}')">Join</button>
     </div>
+{% endfor %}
+
+        {% endif %}
+    </div>
+    
+
+    <!-- Placeholder for the Attend Team form -->
+    <div id="attendTeamFormContainer"></div>
+
+    <!-- JavaScript for handling team join form display -->
+    <script>
+        function showJoinTeamForm(teamId,teamName) {
+            var formContainer = document.getElementById('attendTeamFormContainer');
+            var formHtml = '<div class="form-container">' +
+                            '<h1>Attend Team ' + teamName + '</h1>' +
+                            '<form action="/attend_event/' + teamName + '" method="post">' +
+                            '<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">' +
+                            '<div class="form-group">' +
+                            '    <label for="email">Email:</label>' +
+                            '    <input type="email" id="email" name="email" required>' +
+                            '</div>' +
+                            '<div class="form-group">' +
+                            '    <label for="nickname">Nickname:</label>' +
+                            '    <input type="text" id="nickname" name="nickname" required>' +
+                            '</div>' +
+                            '<div class="form-group">' +
+                            '    <label for="role">Role:</label>' +
+                            '    <select id="role" name="role" required>' +
+                            '        <option value="">Select a Role</option>' +
+                            '        <option value="scout">Scout</option>' +
+                            '        <option value="attack_aircraft">Attack Aircraft</option>' +
+                            '        <option value="leader">Leader</option>' +
+                            '        <option value="wingman">Wingman</option>' +
+                            '    </select>' +
+                            '</div>' +
+                            '<button type="submit">Submit</button>' +
+                            '</form>' +
+                            '</div>';
+            formContainer.innerHTML = formHtml;
+        }
+    </script>
 </body>
 </html>

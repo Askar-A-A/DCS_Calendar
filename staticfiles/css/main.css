@@ -178,14 +178,14 @@ sup {
 }
 
 a {
-  color: #009688;
+  color: white;
   text-decoration: none;
   background-color: transparent;
 }
 
 a:hover {
   color: whitesmoke;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 a:not([href]):not([tabindex]) {
@@ -1241,6 +1241,7 @@ pre code {
     -ms-flex: 0 0 25%;
     flex: 0 0 25%;
     max-width: 25%;
+    overflow-x: auto;
   }
 
   .col-md-4 {
@@ -1980,7 +1981,7 @@ pre code {
 }
 
 .table-hover tbody tr:hover {
-color: whitesmoke;
+  color: whitesmoke;
   background-color: rgba(0, 0, 0, 0.075);
 }
 
@@ -7496,7 +7497,7 @@ a.close.disabled {
 }
 
 .bg-primary {
-  background-color: #009688 !important;
+  background-color: #2d2d39 !important;
 }
 
 a.bg-primary:hover,
@@ -9321,9 +9322,6 @@ button.bg-dark:focus {
 .mb-4,
 .my-4 {
   margin-bottom: 1.5rem !important;
-  background-color: #3f4255;
-  padding: 15px;
-  border-radius: 15px;
 }
 
 .ml-4,
@@ -11708,7 +11706,6 @@ a.text-dark:focus {
 
   .table-bordered th,
   .table-bordered td {
-    color: whitesmoke;
     border: 1px solid #dee2e6 !important;
   }
 
@@ -11741,7 +11738,6 @@ table.dataTable td,
 table.dataTable th {
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
-  color: white;
 }
 
 table.dataTable td.dataTables_empty,
@@ -14972,13 +14968,17 @@ temporary rendered events).
   padding: 5px;
   line-height: 1.3;
   border-radius: 3px;
-  /* border: 1px solid #009688; */
-  /* background-color: #009688; */
+  border: 1px solid #3f4255; 
+  background-color: #3f4255; 
   font-weight: normal;
   /* undo jqui's ui-widget-header bold */
   margin-bottom: 5px;
   cursor: all-scroll;
+  /* background-image: url("../images/flag.png"); */
+  background-size: contain;
+  background-repeat: no-repeat;
 }
+
 
 /* overpower some of bootstrap's and jqui's styles on <a> tags */
 .fc-event,
@@ -14986,7 +14986,10 @@ temporary rendered events).
 .ui-widget .fc-event {
   color: #fff;
   /* default TEXT color */
-  text-decoration: none;
+  /* text-decoration: none; */
+  /* background-image: url("../images/flag.png"); */
+  background-size: contain;
+  background-repeat: no-repeat;
   /* if <a> has an href */
 }
 
@@ -15087,6 +15090,7 @@ be a descendant of the grid when it is being dragged.
   margin: 1px 2px 0;
   /* spacing between events and edges */
   padding: 0 1px;
+
 }
 
 .fc-day-grid-event .fc-content {
@@ -15145,6 +15149,7 @@ a.fc-more:hover {
 .fc-toolbar {
   text-align: center;
   margin-bottom: 1em;
+
 }
 
 .fc-toolbar .fc-left {
@@ -15177,7 +15182,7 @@ a.fc-more:hover {
   margin: 0;
   text-transform: uppercase;
   font-size: 26px;
-  color: #555;
+  color: whitesmoke;
 }
 
 /* button layering (for border precedence) */
@@ -16075,7 +16080,7 @@ be a descendant of the grid when it is being dragged.
   min-height: calc(100vh - 50px);
   margin-top: 50px;
   padding: 30px;
-  background-color: #E5E5E5;
+  background-color: #2d2d39;
   -webkit-transition: margin-left 0.3s ease;
   -o-transition: margin-left 0.3s ease;
   transition: margin-left 0.3s ease;
@@ -16136,6 +16141,19 @@ be a descendant of the grid when it is being dragged.
   padding-right: 15px;
 }
 
+.app-header__container {
+  width: 100%;
+
+  justify-content: space-between;
+  display: flex;
+  background-color: #3f4255;
+}
+
+.app-header__title {
+  color: whitesmoke;
+  align-items: center;
+  padding: 14px
+}
 
 @media (min-width: 768px) {
   .app-header {
@@ -16169,7 +16187,7 @@ be a descendant of the grid when it is being dragged.
     flex: 0 0 auto;
     display: block;
     width: 230px;
-    background-color: #007d71;
+    background-color: #3f4255;
   }
 }
 
@@ -16700,7 +16718,9 @@ be a descendant of the grid when it is being dragged.
   -webkit-box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
-  background-color: #FFF;
+  /* background-color: #FFF; */
+  background-color: #2d2d39;
+  color: white;
   margin: -30px -30px 30px;
   padding: 20px 30px;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -16765,7 +16785,8 @@ be a descendant of the grid when it is being dragged.
 
 .tile {
   position: relative;
-  background: #ffffff;
+  background: #2d2d39;
+  color: black;
   border-radius: 3px;
   padding: 20px;
   -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
@@ -17985,4 +18006,12 @@ be a descendant of the grid when it is being dragged.
 
 .user .user-settings label {
   color: #666;
+}
+
+#description_event_detail {
+  /* color: red; */
+}
+
+#text {
+  width: 30px;
 }
