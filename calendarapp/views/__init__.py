@@ -11,6 +11,7 @@ from .other_views import (
     next_week,
     next_day,
     attend_event,
+    event_info
 )
 
 
@@ -28,4 +29,5 @@ __all__ = [
     next_week,
     next_day,
     attend_event,
+    event_info
 ]

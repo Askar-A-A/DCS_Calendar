@@ -141,28 +141,29 @@ Calendar{% endblock title %} {% block extracss %}
                   <p id="end_event_detail"></p>
                 </div>
               </div>
+              
               <div class="modal-footer">
+                <button
+                  id="event-info-button"
+                  data-event-id=""
+                  type="button"
+                  class="btn btn-success"
+                >
+                  Participants
+                </button>
                 <button
                   id="attend-event-button"
                   data-event-id=""
                   type="button"
-                  class="btn btn-primary"
+                  class="btn btn-success"
                 >
                   Attend
-                </button>
-                <button
-                  id="delete-event-button"
-                  data-event-id=""
-                  type="button"
-                  class="btn btn-danger"
-                >
-                  Delete
                 </button>
                 <button
                   id="add-to-next-week"
                   data-event-id-week=""
                   type="button"
-                  class="btn btn-success"
+                  class="btn btn-primary"
                 >
                   Next Week
                 </button>
@@ -173,6 +174,14 @@ Calendar{% endblock title %} {% block extracss %}
                   class="btn btn-primary"
                 >
                   Next Day
+                </button>
+                <button
+                  id="delete-event-button"
+                  data-event-id=""
+                  type="button"
+                  class="btn btn-danger"
+                >
+                  Delete
                 </button>
               </div>
             </form>
@@ -248,11 +257,13 @@ Calendar{% endblock title %} {% block extracss %}
             var nextWeek = document.getElementById("add-to-next-week");
             var nextDay = document.getElementById("add-to-next-day");
             var attendButton = document.getElementById("attend-event-button");
+            var infoButton = document.getElementById("event-info-button");
 
             deleteButton.setAttribute("data-event-id", id);
             nextWeek.setAttribute("data-event-id-week", id);
             nextDay.setAttribute("data-event-id-day", id);
             attendButton.setAttribute("data-event-id", id);
+            infoButton.setAttribute("data-event-id", id);
             modal.style.display = 'block'
 
             modalTitle.textContent = title;
@@ -386,5 +397,10 @@ Calendar{% endblock title %} {% block extracss %}
       console.log('Event ID:', eventId); // Debugging line to check the event ID
       window.location.href = `/attend_event/${eventId}/`;
   });
+  document.getElementById('event-info-button').addEventListener('click', function() {
+    const eventId = this.getAttribute('data-event-id');
+    console.log('Event ID:', eventId); // Debugging line to check the event ID
+    window.location.href = `/event_info/${eventId}/`;
+});
 </script>
 {% endblock extrascripts %}

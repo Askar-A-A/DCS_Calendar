@@ -63,28 +63,26 @@
         {% if teams %}
             <h1>Teams for Event {{ event_title }}</h1>
             {% for team in teams %}
-    <div>
-        <span>{{ team.name }}</span>
-        <!-- Pass both team.id and team.name to the function -->
-        <button onclick="showJoinTeamForm('{{ team.id }}', '{{ team.name }}')">Join</button>
-    </div>
-{% endfor %}
-
+                <div>
+                    <span>{{ team.name }}</span>
+                    <button onclick="showJoinTeamForm('{{ event_id }}', '{{ team.name }}', '{{ team.id }}')">Join</button>
+                </div>
+            {% endfor %}
         {% endif %}
     </div>
     
-
     <!-- Placeholder for the Attend Team form -->
     <div id="attendTeamFormContainer"></div>
 
     <!-- JavaScript for handling team join form display -->
     <script>
-        function showJoinTeamForm(teamId,teamName) {
+        function showJoinTeamForm(eventId, teamName, teamId) {
             var formContainer = document.getElementById('attendTeamFormContainer');
             var formHtml = '<div class="form-container">' +
                             '<h1>Attend Team ' + teamName + '</h1>' +
-                            '<form action="/attend_event/' + teamName + '" method="post">' +
-                            '<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">' +
+                            '<form action="/attend_event/' + eventId + '/" method="post">' + // Correct form action using eventId
+                            '<input type="hidden" name="csrfmiddlewaretoken" value="' + getCsrfToken() + '">' + // Get CSRF token from cookies
+                            '<input type="hidden" name="team_id" value="' + teamId + '">' +
                             '<div class="form-group">' +
                             '    <label for="email">Email:</label>' +
                             '    <input type="email" id="email" name="email" required>' +
@@ -107,7 +105,21 @@
                             '</form>' +
                             '</div>';
             formContainer.innerHTML = formHtml;
-        }
+        }        
+     
+        function getCsrfToken() {
+            // Function to retrieve CSRF token from cookies
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.startsWith('csrftoken=')) {
+                    return cookie.substring('csrftoken='.length, cookie.length);
+                }
+            }
+            return 'unknown';
+        }    
+
     </script>
 </body>
+
 </html>

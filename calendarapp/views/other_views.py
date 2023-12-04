@@ -12,10 +12,15 @@ from django.urls import reverse_lazy, reverse
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
+import logging
 
 from calendarapp.models import EventMember, Event, Team
 from calendarapp.utils import Calendar
 from calendarapp.forms import EventForm, AddMemberForm
+from django.db.models import Prefetch
+
+logger = logging.getLogger(__name__)
+
 
 
 def get_date(req_day):
@@ -209,14 +214,23 @@ def attend_event(request, event_id):
         email = request.POST.get('email')
         nickname = request.POST.get('nickname')
         role = request.POST.get('role')
+        team_id = request.POST.get('team_id')
 
-        if not EventMember.objects.filter(event=event, email=email, nickname=nickname, role=role):
+        try:
+            selected_team = Team.objects.get(id=team_id, event=event)
+        except Team.DoesNotExist:
+            messages.error(request, 'Selected team does not exist!')
+            return redirect('some_error_page')
+
+
+        if not EventMember.objects.filter(event=event, email=email, nickname=nickname, role=role).exists():
             EventMember.objects.create(
                 event=event, 
                 user=request.user,
                 email=email, 
                 nickname=nickname,
-                role=role
+                role=role,
+                team=selected_team 
             )
     context = {
         'event_id': event_id,
@@ -228,6 +242,53 @@ def attend_event(request, event_id):
 
 
 
+def event_info(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+    # Define a queryset with only the fields you want to access
+    team_members_qs = EventMember.objects.only("nickname", "role", "email")
+
+    # Get all teams for this event
+    teams = event.teams.prefetch_related(Prefetch("members", queryset=team_members_qs))
+
+    # Add teams_data to the context
+    context = {
+        'event': event,
+        'teams': teams,
+    }
+    return render(request, 'info.html', context)
+
+
+
+# def event_info(request, event_id):
+#     event = get_object_or_404(Event, id=event_id)
+#     teams_data = []
+
+#     # Get all teams for this event
+#     teams = event.teams.all()  # This uses the related_name 'teams' set in Team model
+
+#     for team in teams:
+#         # Get all members for this team
+#         members_data = [{
+#             'nickname': members.nickname,
+#             'role': members.role,
+#             'email': members.email
+#         } for members in team.members.all()]  # Accessing EventMember instances
+
+#         teams_data.append({
+#             'name': team.name,
+#             'members': members_data
+#         })
+
+#     # Add teams_data to the context
+#     context = {
+#         'event': event,
+#         'teams_data': teams_data,
+#     }
+#     #### ADD logging here via logger or print
+#     logger.debug(context)
+#     print(context)
+#     ####
+#     return render(request, 'info.html', context)
              
 
         

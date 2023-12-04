@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Event Teams</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            /* Align items to the start of the container */
+            height: 100vh;
+            margin: 0;
+            padding-top: 50px;
+            /* Creates space from the top of the page */
+            background-color: #f4f4f4;
+            /* Or any other background color you prefer */
+        }
+
+        .container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            /* Adjust the width as needed */
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown {
+            width: 100%;
+            margin-bottom: 10px;
+            /* Space out dropdowns */
+        }
+
+        .dropdown button {
+            width: 100%;
+            text-align: left;
+            padding: 10px;
+            /* Add padding for button */
+            background-color: #f9f9f9;
+            /* Button color */
+            border: 1px solid #ddd;
+            /* Button border */
+            cursor: pointer;
+            /* Change mouse cursor on hover */
+        }
+
+        .dropdown-content {
+            display: none;
+            width: 100%;
+            background-color: #f9f9f9;
+            box-shadow: none;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            /* Show the dropdown content on hover */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Event Teams</h1>
+        {% for team in teams %} {# changed this to teams to match contect #}
+        <div class="dropdown">
+            <button>{{ team.name }}</button>
+            <div class="dropdown-content">
+                <h2>{{ team.name }}</h2>
+                <p>Team Members:</p>
+                <ul>
+
+                    {% for member in team.members.all %}
+                    <li>{{ member.nickname }} - {{ member.role }}</li>
+                    {% empty %}
+                    <li>No members in this team yet.</li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

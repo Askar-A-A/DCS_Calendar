@@ -21,6 +21,7 @@ class EventManager(models.Manager):
             end_time__gte=datetime.now().date(),
         ).order_by("start_time")
         return running_events
+    
 
 
 class Event(EventAbstract):
@@ -46,9 +47,10 @@ class Event(EventAbstract):
         url = reverse("calendarapp:event-detail", args=(self.id,))
         return f'<a href="{url}"> {self.title} </a>'
     
+
 class Team(models.Model):
     name = models.CharField(max_length=50)
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="teams")
 
     def __str__(self):
-        return self.name
+        return self.name    
