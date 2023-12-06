@@ -231,9 +231,16 @@ def attend_event(request, event_id):
             team=selected_team, 
             role=role
         )
+
+        email_event_scope = EventMember.objects.filter(
+            event=event,
+            email=email
+        )
         
         if existing_member.exists():
             messages.error(request, "An event member with this role in the selected team already exists.")
+        elif email_event_scope.exists():
+            messages.error(request, "The user with this email exists in this event")    
         else:
             EventMember.objects.create(
                 event=event, 

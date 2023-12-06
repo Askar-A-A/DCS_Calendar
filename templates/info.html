@@ -69,10 +69,34 @@
             display: block;
             /* Show the dropdown content on hover */
         }
+        .back-button-container {
+            position: absolute; /* or 'fixed' if you want it to stay in place when scrolling */
+            top: 20px;
+            left: 20px;
+            z-index: 1000; /* High z-index to ensure it is above other elements */
+        }
+        
+        .back-button {
+            font-size: 22px; /* Larger font size for better visibility */
+            padding: 10px 20px; /* Larger padding for a bigger button */
+            background-color: #526C82;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional: adds a shadow for better contrast */
+        }
+        
+        .back-button:hover {
+            background-color: #435768; /* Slightly darker on hover for feedback */
+        }
     </style>
 </head>
 
 <body>
+    <div class="back-button-container">
+        <a href="/calender/" class="back-button">Go Back</a>
+    </div>
     <div class="container">
         <h1 class="text-white">Event Teams</h1>
         {% for team in teams %}
