@@ -51,6 +51,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         unique=True,
         help_text="Ex: example@example.com",
     )
+    
     is_staff = models.BooleanField(_("Staff status"), default=False)
     is_active = models.BooleanField(_("Active"), default=True)
     date_joined = models.DateTimeField(_("Date Joined"), auto_now_add=True)

@@ -6,7 +6,7 @@ from django.views import generic
 from django.utils.safestring import mark_safe
 from datetime import timedelta, datetime, date
 import calendar
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from django.http import JsonResponse
@@ -18,9 +18,13 @@ from calendarapp.models import EventMember, Event, Team
 from calendarapp.utils import Calendar
 from calendarapp.forms import EventForm, AddMemberForm
 from django.db.models import Prefetch
+from django.db import IntegrityError
 
 logger = logging.getLogger(__name__)
 
+
+def is_moderator(user):
+    return user.groups.filter(name='moderator').exists()
 
 
 def get_date(req_day):
@@ -62,6 +66,7 @@ class CalendarView(LoginRequiredMixin, generic.ListView):
 
 
 @login_required(login_url="signup")
+@user_passes_test(is_moderator)
 def create_event(request):
     form = EventForm(request.POST or None)
     if request.POST and form.is_valid():
@@ -191,6 +196,7 @@ def attend_event(request, event_id):
     event = get_object_or_404(Event, id=event_id)
     teams = Team.objects.filter(event=event)
     team_created = False
+    team_id = None
 
     # Handle Team Creation
     if request.method == "POST" and 'team_name' in request.POST:
@@ -209,21 +215,26 @@ def attend_event(request, event_id):
             messages.success(request, 'Team created successfully!')        
             
 
-    # Handle Event Attendance
-    if request.method == "POST" and 'email' in request.POST:  # Check if attendance form was submitted
+    # Event Attendance Handling 
+    if request.method == "POST" and 'email' in request.POST:  
         email = request.POST.get('email')
         nickname = request.POST.get('nickname')
         role = request.POST.get('role')
         team_id = request.POST.get('team_id')
 
-        try:
-            selected_team = Team.objects.get(id=team_id, event=event)
-        except Team.DoesNotExist:
-            messages.error(request, 'Selected team does not exist!')
-            return redirect('some_error_page')
-
-
-        if not EventMember.objects.filter(event=event, email=email, nickname=nickname, role=role).exists():
+    try:
+        selected_team = Team.objects.get(id=team_id, event=event)
+        
+        # Check if an EventMember already exists with this event, team, and role
+        existing_member = EventMember.objects.filter(
+            event=event, 
+            team=selected_team, 
+            role=role
+        )
+        
+        if existing_member.exists():
+            messages.error(request, "An event member with this role in the selected team already exists.")
+        else:
             EventMember.objects.create(
                 event=event, 
                 user=request.user,
@@ -232,6 +243,14 @@ def attend_event(request, event_id):
                 role=role,
                 team=selected_team 
             )
+            messages.success(request, "Event member added successfully.")
+            
+    except Team.DoesNotExist:
+        messages.error(request, 'Selected team does not exist!')
+    except IntegrityError as e:
+        messages.error(request, "An event member with this role in the selected team already exists.") 
+       
+
     context = {
         'event_id': event_id,
         'event_title': event.title,
@@ -244,13 +263,8 @@ def attend_event(request, event_id):
 
 def event_info(request, event_id):
     event = get_object_or_404(Event, id=event_id)
-    # Define a queryset with only the fields you want to access
     team_members_qs = EventMember.objects.only("nickname", "role", "email")
-
-    # Get all teams for this event
     teams = event.teams.prefetch_related(Prefetch("members", queryset=team_members_qs))
-
-    # Add teams_data to the context
     context = {
         'event': event,
         'teams': teams,

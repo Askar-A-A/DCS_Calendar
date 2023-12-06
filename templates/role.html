@@ -1,3 +1,4 @@
+{% load custom_tags %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -121,6 +122,15 @@
     </style>
 </head>
 <body>
+    {% if messages %}
+        <div class="form-container">
+            {% for message in messages %}
+                <div class="{% if message.tags %}alert alert-{{ message.tags }}{% else %}alert{% endif %}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
     <div class="form-container">
         <h2>Create Team for Event {{ event_title }}</h2>
         <form action="" method="post">
@@ -215,5 +225,6 @@
 
     </script>
 </body>
+
 
 </html>
