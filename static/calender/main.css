@@ -723,7 +723,7 @@ A HORIZONTAL event
   }
 .fc .fc-daygrid-day.fc-day-today {
       background-color: rgba(152, 362, 118, 0.15);
-      background-color: var(--fc-today-bg-color, rgba(93, 168, 40, 0.15));  
+      background-color: var(--fc-today-bg-color, rgba(70, 180, 247, 0.15));
     }
 .fc .fc-daygrid-day-frame {
     position: relative;
@@ -1155,7 +1155,7 @@ A VERTICAL event
   }
 .fc .fc-timegrid-col.fc-day-today {
       background-color: rgba(255, 220, 40, 0.15);
-      background-color: var(--fc-today-bg-color, rgba(255, 220, 40, 0.15));
+      background-color: var(--fc-today-bg-color, rgba(70, 180, 247, 0.15));
     }
 .fc .fc-timegrid-col-frame {
     min-height: 100%; /* liquid-hack is below */

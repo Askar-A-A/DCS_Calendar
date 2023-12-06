@@ -11,10 +11,26 @@ Calendar{% endblock title %} {% block extracss %}
 </ul>
 {% endblock breadcrumb %} 
 {% block content %}
+<style>
+  .modal-content {
+    background-color: #3f4255;
+  }
+  .modal-header.bg-primary {
+    background-color: #3f4255;
+  }
+
+  .modal-title.text-white {
+    color: #fff;
+  }
+
+  .form-group{
+    color: white;
+  }
+</style>
 <div class="row">
   <div class="col-md-12">
     <div class="tile row">
-      <div class="col-md-3" style="color: whitesmoke;">
+      <div class="col-md-3" style="color: whitesmoke; overflow-y: auto; max-height: 920px;">
         <div id="external-events">
           <h4 class="mb-4">Running Events</h4>
           {% for event in events_month %}
