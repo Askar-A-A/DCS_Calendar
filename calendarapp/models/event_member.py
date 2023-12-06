@@ -15,7 +15,7 @@ class EventMember(EventAbstract):
     team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="members", null=True, blank=True)
 
     class Meta:
-        unique_together = ["event", "user", "role"]
+        unique_together = ('event', 'team', 'role')
 
     def __str__(self):
         return f"{self.user} - {self.role}"

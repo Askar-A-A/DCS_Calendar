@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth.password_validation import validate_password
-
+from django.contrib.auth.models import Group 
 from accounts.models import User
 
 
@@ -23,10 +23,12 @@ class SignUpForm(forms.ModelForm):
         widget=forms.PasswordInput(attrs={"class": "form-control"}),
         validators=[validate_password],
     )
+    role = forms.ChoiceField(choices=[('moderator', 'Moderator'), ('none', 'None')], required=False)
+    
 
     class Meta:
         model = User
-        fields = ["email"]
+        fields = ["email", "password1", "password2", "role"]
         widgets = {"email": forms.EmailInput(attrs={"class": "form-control"})}
 
     def clean_password2(self):
@@ -41,4 +43,8 @@ class SignUpForm(forms.ModelForm):
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
+            selected_role = self.cleaned_data.get('role')
+            if selected_role:
+                group = Group.objects.get(name=selected_role)
+                user.groups.add(group)
         return user
