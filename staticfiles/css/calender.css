@@ -68,3 +68,21 @@
     padding: 5px;
     width: 100%;
   }
+
+  .dropdown-content {
+    display: none;
+    width: 100%;
+    background-color: #2d2d39;
+    box-shadow: none;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.form-container h2, .form-container label, .form-container span {
+    color: white;
+}
+
+.modal-content {
+  color: #2d2d39;
+
+}

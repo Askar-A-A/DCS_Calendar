@@ -9324,6 +9324,11 @@ button.bg-dark:focus {
   margin-bottom: 1.5rem !important;
 }
 
+.mb-5,
+.my-5 {
+  margin-bottom: 3.5rem !important;
+}
+
 .ml-4,
 .mx-4 {
   margin-left: 1.5rem !important;
@@ -14972,7 +14977,7 @@ temporary rendered events).
   background-color: #3f4255; 
   font-weight: normal;
   /* undo jqui's ui-widget-header bold */
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   cursor: all-scroll;
   /* background-image: url("../images/flag.png"); */
   background-size: contain;

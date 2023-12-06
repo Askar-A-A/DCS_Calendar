@@ -1,28 +1,47 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Event Role Selection</title>
+    <title>Attend</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/calender.css' %}">
     <style>
         body {
+            color: white;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px 0; /* Add top and bottom padding */
-            background-color: #f4f4f4;
+            background-color: #2d2d39;
             display: flex;
             flex-direction: column; /* Align items vertically */
             align-items: center; /* Center items horizontally */
             justify-content: flex-start; /* Align content to the top */
         }
         .form-container {
-            background-color: white;
+            border: 1px solid #ccc;
+            background-color: #3f4255;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px; /* Space between forms */
         }
+
+        .container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            /* Adjust the width as needed */
+            background-color: #3f4255;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
         .form-group {
             margin-bottom: 15px;
+
         }
         label {
             display: block;
@@ -36,7 +55,7 @@
             box-sizing: border-box;
         }
         button {
-            background-color: #007bff;
+            background-color: #526C82;
             color: white;
             padding: 10px 15px;
             border: none;
@@ -44,8 +63,61 @@
             cursor: pointer;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #526C82;
         }
+
+        .form-container{
+        color: #2d2d39;
+        }
+
+        .form-container h2{
+            color: white;
+        }
+
+        .form-container .form-group{
+            color: white;
+        }
+
+        .dropdown {
+            width: 80%;
+            margin-bottom: 10px;
+            /* Space out dropdowns */
+        }
+
+        .dropdown button {
+            width: 100%;
+            text-align: left;
+            padding: 10px;
+            /* Add padding for button */
+            background-color: #526C82;
+            /* Button color */
+            border: 1px solid #ddd;
+            /* Button border */
+            cursor: pointer;
+            /* Change mouse cursor on hover */
+        }
+
+        .dropdown button:hover {
+        background-color: #435768; /* Adjust the color as needed */
+        color: white;
+        }
+
+
+        .dropdown-content {
+            display: none;
+            width: 100%;
+            background-color: #2d2d39;
+            box-shadow: none;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            /* Show the dropdown content on hover */
+        }
+
+
     </style>
 </head>
 <body>
@@ -59,17 +131,39 @@
             </div>
             <button type="submit">Create Team</button>
         </form>
-    
-        {% if teams %}
-            <h1>Teams for Event {{ event_title }}</h1>
+        <br>
+        <h2>Teams for Event {{ event_title }}</h2>
+        <!-- {% if teams %}
+            <h2>Teams for Event {{ event_title }}</h2>
             {% for team in teams %}
                 <div>
                     <span>{{ team.name }}</span>
                     <button onclick="showJoinTeamForm('{{ event_id }}', '{{ team.name }}', '{{ team.id }}')">Join</button>
                 </div>
             {% endfor %}
-        {% endif %}
-    </div>
+        {% endif %} -->
+
+        <div>
+        {% for team in teams %}
+            <div class="dropdown">
+                <button class="btn btn-light">{{ team.name }}</button>
+                <div class="dropdown-content">
+                    <h2 class="text-white">{{ team.name }}</h2>
+                    <p class="text-white">Team Members:</p>
+                    <ul class="list-group">
+                        {% for member in team.members.all %}
+                        <li class="list-group-item">{{ member.nickname }} - {{ member.role }}</li>
+                        {% empty %}
+                        <li class="list-group-item">No members in this team yet.</li>
+                        {% endfor %}
+                    </ul>
+                    <br>
+                    <button onclick="showJoinTeamForm('{{ event_id }}', '{{ team.name }}', '{{ team.id }}')">Join</button>
+
+                </div>
+            </div>
+        {% endfor %}
+        </div>
     
     <!-- Placeholder for the Attend Team form -->
     <div id="attendTeamFormContainer"></div>
@@ -79,7 +173,7 @@
         function showJoinTeamForm(eventId, teamName, teamId) {
             var formContainer = document.getElementById('attendTeamFormContainer');
             var formHtml = '<div class="form-container">' +
-                            '<h1>Attend Team ' + teamName + '</h1>' +
+                            '<h2>Attend Team ' + teamName + '</h2>' +
                             '<form action="/attend_event/' + eventId + '/" method="post">' + // Correct form action using eventId
                             '<input type="hidden" name="csrfmiddlewaretoken" value="' + getCsrfToken() + '">' + // Get CSRF token from cookies
                             '<input type="hidden" name="team_id" value="' + teamId + '">' +

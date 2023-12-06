@@ -14,18 +14,23 @@ Calendar{% endblock title %} {% block extracss %}
 <div class="row">
   <div class="col-md-12">
     <div class="tile row">
-      <div class="col-md-3" style="
-      color: whitesmoke;">
+      <div class="col-md-3" style="color: whitesmoke;">
         <div id="external-events">
           <h4 class="mb-4">Running Events</h4>
           {% for event in events_month %}
           <div class="fc-event">
-            <h3>{{ event.title }}</h3>
-            <p>{{ event.description }}</p>
-            <p>{{event.id}}</p>
-            <p>From: {{ event.start_time }}</p>
-            <p>To: {{ event.end_time }}</p>
+            <h3 class="card-title">{{ event.title }}</h3>
           </div>
+          <div class="fc-event">
+            <p1>{{ event.description }}</p>
+            <p class="card-text">
+              <small class="text-muted">
+                  From: {{ event.start_time }},<br>
+                  To: {{ event.end_time }}
+              </small>
+            </p>     
+          </div>
+          <br>
           {% empty %}
           <p>No Running Events Found</p>
           {% endfor %}
