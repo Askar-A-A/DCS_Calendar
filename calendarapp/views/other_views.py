@@ -146,6 +146,7 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
                    "events_month": events_month}
         return render(request, self.template_name, context)
 
+    @user_passes_test(is_moderator)
     def post(self, request, *args, **kwargs):
         forms = self.form_class(request.POST)
         if forms.is_valid():
@@ -153,11 +154,13 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
             form.user = request.user
             form.save()
             return redirect("calendarapp:calendar")
+        else: 
+            messages.error('The user is not  amo')
         context = {"form": forms}
         return render(request, self.template_name, context)
 
 
-
+@user_passes_test(is_moderator)
 def delete_event(request, event_id):
     event = get_object_or_404(Event, id=event_id)
     if request.method == 'POST':
@@ -166,6 +169,7 @@ def delete_event(request, event_id):
     else:
         return JsonResponse({'message': 'Error!'}, status=400)
 
+@user_passes_test(is_moderator)
 def next_week(request, event_id):
     event = get_object_or_404(Event, id=event_id)
     if request.method == 'POST':
@@ -178,6 +182,7 @@ def next_week(request, event_id):
     else:
         return JsonResponse({'message': 'Error!'}, status=400)
 
+@user_passes_test(is_moderator)
 def next_day(request, event_id):
 
     event = get_object_or_404(Event, id=event_id)
@@ -227,6 +232,7 @@ def attend_event(request, event_id):
         
         # Check if an EventMember already exists with this event, team, and role
         existing_member = EventMember.objects.filter(
+            user=request.user,
             event=event, 
             team=selected_team, 
             role=role
@@ -238,7 +244,7 @@ def attend_event(request, event_id):
         )
         
         if existing_member.exists():
-            messages.error(request, "An event member with this role in the selected team already exists.")
+            messages.error(request, "An event member with this data already exists!")
         elif email_event_scope.exists():
             messages.error(request, "The user with this email exists in this event")    
         else:

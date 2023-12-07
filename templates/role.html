@@ -154,8 +154,9 @@
         </div>
     {% endif %}
     
-
+    
     <div class="form-container">
+        {% if request.user|has_group:"moderator" %}
         <h2>Create Team for Event {{ event_title }}</h2>
         <form action="" method="post">
             {% csrf_token %}
@@ -165,6 +166,7 @@
             </div>
             <button type="submit">Create Team</button>
         </form>
+        {% endif %}
         <br>
         <h2>Teams for Event {{ event_title }}</h2>
         <!-- {% if teams %}

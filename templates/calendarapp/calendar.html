@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %} {% load static %} {% block title %}Event
 Calendar{% endblock title %} {% block extracss %}
+{% load custom_tags %}
 <link href="{% static 'calender/main.css' %}" rel="stylesheet" />
 {% endblock extracss %} {% block breadcrumb %}
 <div>
@@ -164,48 +165,13 @@ Calendar{% endblock title %} {% block extracss %}
               </div>
               
               <div class="modal-footer">
-                <button
-                  id="event-info-button"
-                  data-event-id=""
-                  type="button"
-                  class="btn btn-success"
-                >
-                  Participants
-                </button>
-                <button
-                  id="attend-event-button"
-                  data-event-id=""
-                  type="button"
-                  class="btn btn-success"
-                >
-                  Attend
-                </button>
-                <button
-                  id="add-to-next-week"
-                  data-event-id-week=""
-                  type="button"
-                  class="btn btn-primary"
-                >
-                  Next Week
-                </button>
-                <button
-                  id="add-to-next-day"
-                  data-event-id-day=""
-                  type="button"
-                  class="btn btn-primary"
-                >
-                  Next Day
-                </button>
-                <button
-                  id="delete-event-button"
-                  data-event-id=""
-                  type="button"
-                  class="btn btn-danger"
-                >
-                  Delete
-                </button>
-              </div>
-            </form>
+                <button id="event-info-button" data-event-id="" type="button" class="btn btn-success">Participants</button>
+                <button id="attend-event-button" data-event-id="" type="button" class="btn btn-success">Attend</button>
+                <button id="add-to-next-week" data-event-id-week="" type="button" class="btn btn-primary">Next Week</button>
+                <button id="add-to-next-day" data-event-id-day="" type="button" class="btn btn-primary">Next Day</button>
+                <button id="delete-event-button" data-event-id="" type="button" class="btn btn-danger">Delete</button>
+            </div>
+            </form> 
           </div>
         </div>
       </div>
