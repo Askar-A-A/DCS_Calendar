@@ -1,4 +1,4 @@
-# Calendar for the DCS community events
+# Calendar for the DCS community events. Written on Django
 
 the base was taken from:
 https://www.youtube.com/watch?v=HvnPeeLEVq0&t=0s
