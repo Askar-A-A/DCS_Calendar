@@ -5,19 +5,6 @@ https://www.youtube.com/watch?v=HvnPeeLEVq0&t=0s
 
 
 ## How To Setup
-```
-git clone https://github.com/sajib1066/event-calendar.git
-```
-```
-cd event-calendar
-```
-```
-python3 -m venv venv
-```
-```
-source venv/bin/activate
-```
-```
 pip install -r requirements.txt
 ```
 ```
